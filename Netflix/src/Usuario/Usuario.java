@@ -5,15 +5,15 @@
  */
 package Usuario;
 
+import Servicos.Editavel;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
  *
  * @author Adriano
  */
-public class Usuario extends Pessoa implements Autenticavel{
+public class Usuario extends Pessoa implements Autenticavel, Editavel{
     
     private String nomeUsuario;
     private String senha;
@@ -55,16 +55,6 @@ public class Usuario extends Pessoa implements Autenticavel{
         }
     }
 
-    @Override
-    public String toString() {
-        super.toString();
-        String novo =   "\nNome Usuario: " + this.nomeUsuario;
-        
-        return novo;
-    }
-    
-    
-    
     public static Usuario novoUser(){
         Scanner sc = new Scanner(System.in);
         String nome1;
@@ -90,6 +80,18 @@ public class Usuario extends Pessoa implements Autenticavel{
         return new Usuario(nome1, endereco1, idade1, nomeUser1, senha1);     
     }
     
+    @Override
+    public String toString() {
+        
+        String novo =   super.toString() + "\nNome Usuario: " + this.nomeUsuario;
+        
+        return novo;
+    }
+    
+    
+    
+    
+    
     
     @Override
     public boolean autenticar(ArrayList <Autenticavel> vetor) {
@@ -113,6 +115,36 @@ public class Usuario extends Pessoa implements Autenticavel{
         else{
             return false;
         }
+    }
+
+    @Override
+    public void editar() {
+    Scanner sc = new Scanner(System.in);
+        String nome1;
+        String endereco1;
+        String nomeUser1;
+        String senha1;
+        int idade1;
+
+        System.out.println("Digite seu nome: ");
+        nome1 = sc.next();
+        setNome(nome1);
+        
+        System.out.println("Digite sua Idade: ");
+        setIdade(idade);
+
+        sc.nextLine(); //Limpa o Buffer.
+        System.out.println("Digite seu Endereço: ");
+        endereco1 = sc.nextLine();
+        setEndereco(endereco1);
+
+        System.out.println("Digite seu Nome de Usuario: ");
+        nomeUser1 = sc.nextLine();
+        setNomeUsuario(nomeUser1);
+
+        System.out.println("Digite sua Senha");
+        senha1 = sc.next();
+        setSenha(senha1);
     }
 
 

@@ -32,5 +32,12 @@ public abstract class Servico {
         else{
             this.preco = 0;
         }
-    }   
+    }
+
+    @Override
+    public String toString() {
+        String novo = "\nPreco do Servico" + "R$" + this.preco + "\n"; 
+        return novo;
+        
+    }  
 }

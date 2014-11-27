@@ -34,7 +34,7 @@ public abstract class Arquivo {
 
     @Override
     public String toString() {
-        String s = "Tamanho: " + this.tamanho;
+        String s = "Tamanho: " + this.tamanho + "\n";
         return s;
     }
     

@@ -16,22 +16,27 @@ import java.util.Scanner;
  */
 public class Youtube extends Servico implements Streaming{
     private boolean status;
-    private Usuario usuario;
+    private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static ArrayList<Videos> listaVideos = new ArrayList<>();
+    Usuario usuarioLogado;
 
-    public Youtube(boolean status, Usuario usuario, double preco) {
+    public Youtube(Usuario userlogado, boolean status, double preco) {
         super(preco);
+        this.usuarioLogado = userlogado;
         this.status = status;
-        this.usuario = usuario;
     }
     public Youtube(){
         super(0);
-        usuario = new Usuario();
-        this.status = true;
+        this.usuarioLogado = new Usuario();
+        this.status = false;
+    }
+    public static ArrayList<Videos> getListaVideos() {
+        return listaVideos;
     }
     public static void mostrarListaVideos(){
-        for(Videos sim : listaVideos){
-          sim.aboutVideo();
+        for(Videos i : listaVideos){   
+            System.out.println(i);
+            System.out.println("");
         }
     }
     
@@ -52,11 +57,11 @@ public class Youtube extends Servico implements Streaming{
     public boolean logarServico() {
         if( status == false ){
             status = true;
-            usuario.aboutUser();
+            System.out.println(this.usuarioLogado);
         }
         else{
             System.out.println("Usuario já está Logado!");
-            usuario.aboutUser();
+            System.out.println(this.usuarioLogado);
         }
         
         return true;
@@ -70,7 +75,7 @@ public class Youtube extends Servico implements Streaming{
 
     @Override 
     public boolean reproduzirMidia(Videos video) {            
-        if (video.getClassificacao() <= usuario.getIdade()){
+        if (video.getClassificacao() <= usuarioLogado.getIdade()){
             System.out.println("Carregando Video...");
             System.out.println("Video " + video.getNome() + "em reprodução");
             return true;
@@ -79,15 +84,13 @@ public class Youtube extends Servico implements Streaming{
             System.out.println("Fora da classificação Indicativa");
             return false;
         }        
-    } 
-    public final void aboutYouTube(){
-        usuario.aboutUser();
-        if(status == true){
-            System.out.println("Status: Logado");
-        }
-        else{
-            System.out.println("Status: off");
-        }
+    }
+
+    @Override
+    public String toString() {
+        String novo =   "YOUTUBE" + super.toString()+
+                        this.usuarioLogado.toString();
+        return novo;
     }
     
     public final int menuYoutube(){
@@ -100,11 +103,6 @@ public class Youtube extends Servico implements Streaming{
         
         return opcao;
     }
-
-    public static ArrayList<Videos> getListaVideos() {
-        return listaVideos;
-    }
-    
     
     public final int submenu(){
         Scanner sc = new Scanner(System.in);

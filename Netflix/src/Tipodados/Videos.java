@@ -48,14 +48,6 @@ public class Videos extends Arquivo implements Editavel{
         this.duracao = 0.0;
         this.classificacao = Classificacao.LIVRE;
     }
-   
-    public final void aboutVideo(){
-        System.out.println( "Nome: " +  this.nome );
-        System.out.println( "Duração: " +  this.duracao );
-        System.out.println( "Tamanho: " + this.tamanho);
-        System.out.println( "Classificação Indicativa: " + this.classificacao );
-        System.out.println( "" );
-    }
 
     public void setDuracao(double duracao) {
         if( duracao >= 0 ){

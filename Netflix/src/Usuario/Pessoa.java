@@ -26,8 +26,8 @@ public class Pessoa {
     
 
     public Pessoa(String nome, String endereco, int idade) {
-        this.nome = nome;
-        this.endereco = endereco;
+        setNome(nome);
+        setEndereco(endereco);
         setIdade(idade);
     }
     
@@ -50,6 +50,11 @@ public class Pessoa {
         if ( nome.length() <= 25 ){
             this.nome = nome;
         }
+        else{
+            System.out.println("Nome invalido");
+            this.nome = "SEM NOME";
+        }
+         
     }
 
     public String getEndereco() {
@@ -62,6 +67,7 @@ public class Pessoa {
         }
         else {
             System.out.println("Endereço Invalido!");
+            this.endereco = "Rua dos Alfeneiros";
         }
     }
 
@@ -78,7 +84,7 @@ public class Pessoa {
     @Override
     public String toString() {
         String novo =   "\nNome: " + this.nome +
-                        "\nIdade: " + this.idade +
+                        "\nIdade: " + this.idade + " anos" +
                         "\nEndereco: " + this.endereco;
         return novo;
     }

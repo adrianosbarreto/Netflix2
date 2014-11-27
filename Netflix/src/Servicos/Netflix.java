@@ -32,15 +32,16 @@ public class Netflix extends Servico implements Streaming {
     private static final int NUM_MAX_APARELHOS_ONLINE = 4;
     private static int numeroAtualAparelhos = 0;
     private static ArrayList <Videos> filmesDisponiveis = new ArrayList<>();
+    private static ArrayList <Usuario> usuarios = new ArrayList<>();
     private ArrayList <Videos> filmesAssistidos = new ArrayList<>();
     private ArrayList <Videos> minhaLista = new ArrayList<>();
-    private Usuario cliente;
+    private Usuario usuarioAtual;
     private FormaPagamento formaPagamento;
     private boolean status;
 
     public Netflix(Usuario cliente, FormaPagamento forma, boolean status, double preco) {
         super(preco);
-        this.cliente = cliente;
+        this.usuarioAtual = cliente;
         this.status = status;
         this.setNumeroAtualAparelhos();
         formaPagamento = forma;
@@ -48,7 +49,7 @@ public class Netflix extends Servico implements Streaming {
 
     public Netflix() {
         super(19.90);
-        this.cliente = new Usuario();
+        this.usuarioAtual = new Usuario();
         this.formaPagamento = FormaPagamento.BOLETO;
         this.setNumeroAtualAparelhos();
         this.status = false;
@@ -74,7 +75,7 @@ public class Netflix extends Servico implements Streaming {
     }
 
     public Usuario getCliente() {
-        return cliente;
+        return usuarioAtual;
     }
 
     public FormaPagamento getFormaPagamento() {
@@ -105,8 +106,9 @@ public class Netflix extends Servico implements Streaming {
     }
     
     public static void mostrarFilmesDisponiveis(){
-        for(Videos sim : filmesDisponiveis){
-          sim.aboutVideo();
+        for(Videos i : filmesDisponiveis){
+            System.out.println(i);
+            System.out.println("");
         }
     }
 
@@ -116,8 +118,9 @@ public class Netflix extends Servico implements Streaming {
     
     
     public void mostrarFilmesAssistidos(){
-        for(Videos sim : this.filmesAssistidos ){
-            sim.aboutVideo();
+        for(Videos i : this.filmesAssistidos ){
+            System.out.println(i);
+            System.out.println("");
         }
     }
     public final int procurarFilme(String nomeFilme){
@@ -143,11 +146,11 @@ public class Netflix extends Servico implements Streaming {
     public boolean logarServico() {
         if( status == false ){
             status = true;
-            cliente.aboutUser();
+            System.out.println(usuarioAtual);
         }
         else{
             System.out.println("Usuario já está Logado!");
-            cliente.aboutUser();
+           System.out.println(usuarioAtual);
         }
         
         return true;
@@ -161,7 +164,7 @@ public class Netflix extends Servico implements Streaming {
 
     @Override 
     public boolean reproduzirMidia( Videos video ) {            
-        if (video.getClassificacao() <= cliente.getIdade()){
+        if (video.getClassificacao() <= usuarioAtual.getIdade()){
             System.out.println("Carregando Video...");
             System.out.println("Video " + video.getNome() + " em reprodução");
             this.filmesAssistidos.add(video);
