@@ -5,10 +5,13 @@
  */
 package Usuario;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Adriano
  */
 public interface Autenticavel {
+    public abstract boolean autenticar(ArrayList <Autenticavel> vetor);
     
 }

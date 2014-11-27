@@ -73,5 +73,15 @@ public class Pessoa {
         if( idade > 0 && idade <= 130 ){
             this.idade = idade;
         }
-    }  
+    }
+
+    @Override
+    public String toString() {
+        String novo =   "\nNome: " + this.nome +
+                        "\nIdade: " + this.idade +
+                        "\nEndereco: " + this.endereco;
+        return novo;
+    }
+    
+    
 }
