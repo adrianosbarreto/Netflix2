@@ -1,24 +1,16 @@
-
-import Servicos.Netflix;
-import Servicos.Servico;
-import Servicos.Youtube;
-import Tipodados.Videos;
-import Usuario.Autenticavel;
-import Usuario.Usuario;
-import java.util.Scanner;
-import 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Adriano
  */
 
-import java.util.ArrayList;
+import Servicos.Netflix;
+import Servicos.Servico;
+import Servicos.Youtube;
+import Tipodados.Videos;
+import Usuario.Usuario;
+import java.util.Scanner;
+
+
 public class Main {
 
     /**
