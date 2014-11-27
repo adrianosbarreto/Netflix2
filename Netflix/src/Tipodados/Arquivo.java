@@ -9,6 +9,37 @@ package Tipodados;
  *
  * @author Adriano
  */
-public class Arquivo {
+public abstract class Arquivo {
+    protected double tamanho;
+
+    public Arquivo(double tamanho) {
+        setTamanho(tamanho);
+    }
+    public Arquivo(){
+        this.tamanho = 0;
+    }
+    public double getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(double tamanho) {
+        if(tamanho >= 0){
+            this.tamanho = tamanho;
+        }
+        else{
+            System.out.println("Tamanho Invalido");
+            this.tamanho = 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        String s = "Tamanho: " + this.tamanho;
+        return s;
+    }
     
+    
+    public abstract boolean abrirArquivo(Arquivo arquivo);
+    
+        
 }

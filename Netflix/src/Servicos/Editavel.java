@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tipodados;
+package Servicos;
 
 /**
  *
  * @author Adriano
  */
-public class Video {
+public interface Editavel {
+    
+    public abstract void editar();
     
 }
