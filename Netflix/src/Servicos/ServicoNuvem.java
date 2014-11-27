@@ -24,13 +24,7 @@ public class ServicoNuvem extends Servico{
     
     protected Franquia armazenamento;
 
-    public Franquia getArmazenamento() {
-        return armazenamento;
-    }
-
-    public void setArmazenamento(Franquia armazenamento) {
-        this.armazenamento = armazenamento;
-    }
+   
 
     public ServicoNuvem(Franquia armazenamento, double preco) {
         super(preco);
@@ -40,6 +34,14 @@ public class ServicoNuvem extends Servico{
     public ServicoNuvem() {
         super(0);
         this.armazenamento = Franquia.PESSOAL;
+    }
+    
+     public Franquia getArmazenamento() {
+        return armazenamento;
+    }
+
+    public void setArmazenamento(Franquia armazenamento) {
+        this.armazenamento = armazenamento;
     }
     
     @Override

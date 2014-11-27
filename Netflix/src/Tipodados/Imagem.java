@@ -94,8 +94,9 @@ public class Imagem extends Arquivo implements Editavel{
     
     @Override
     public String toString() {
-        super.toString();
+        
         String s =  "\nNome da imagem: " + this.nome +
+                    super.toString() +
                     "\nDimencoes da imagem: " + this.largura + "X" + this.altura +
                     "\n";
         return s;

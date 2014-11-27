@@ -56,6 +56,11 @@ public class Netflix extends Servico implements Streaming {
         this.status = false;
         
     }
+
+    public static ArrayList<Autenticavel> getUsuarios() {
+        return usuarios;
+    }
+    
     
     public static int getNumeroAtualAparelhos() {
         return numeroAtualAparelhos;
@@ -109,6 +114,11 @@ public class Netflix extends Servico implements Streaming {
     public static void adicionarVideos(Videos video){
         filmesDisponiveis.add(video);
     }
+
+    public void setUsuarioAtual(Usuario usuarioAtual) {
+        this.usuarioAtual = usuarioAtual;
+    }
+    
     
     public static void mostrarFilmesDisponiveis(){
         for(Videos i : filmesDisponiveis){
@@ -180,10 +190,10 @@ public class Netflix extends Servico implements Streaming {
             return false;
         }        
     }
-    public final int menuNetflix(){
+    public static int menuNetflix(){
         Scanner sc = new Scanner(System.in);
         int opcao;
-        System.out.println("1 - Mostrar Filmes Disponiveis");
+        System.out.println("\n1 - Mostrar Filmes Disponiveis");
         System.out.println("2 - Mostrar Filmes Assistidos");
         System.out.println("3 - Procurar Filme");
         System.out.println("4 - Conectar Aparelho");
@@ -196,19 +206,19 @@ public class Netflix extends Servico implements Streaming {
     public final int subMenu(){
         Scanner sc = new Scanner(System.in);
         int opcao;
-        System.out.println("1 - Adicionar à Minha Lista");
+        System.out.println("\n1 - Adicionar à Minha Lista");
         System.out.println("2 - Reproduzir Filme");
         opcao = sc.nextInt();
         
         return opcao;
     }
-
     @Override
     public String toString() {
-        String novo =   "NETFLIX" + super.toString() +
+        String novo =   "NETFLIX\n" + super.toString() +
                         this.usuarioAtual.toString();
         
         return novo;
     }
+    
     
 }

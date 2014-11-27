@@ -32,6 +32,11 @@ public class Youtube extends Servico implements Streaming{
         this.usuarioLogado = new Usuario();
         this.status = false;
     }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+    
     public static ArrayList<Videos> getListaVideos() {
         return listaVideos;
     }
@@ -41,6 +46,11 @@ public class Youtube extends Servico implements Streaming{
             System.out.println("");
         }
     }
+
+    public static ArrayList<Autenticavel> getUsuarios() {
+        return usuarios;
+    }
+    
     
     public static void adicionarFilme(Videos video){
         listaVideos.add(video);

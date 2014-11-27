@@ -23,7 +23,7 @@ public class Texto extends Arquivo implements Editavel{
         setTamanho(tamanho);
     }
 
-    public Texto(String titulo, int numeroLinhas) {
+    public Texto() {
         super(0);
         this.titulo = "sem titulo";
         this.numeroLinhas = 0;

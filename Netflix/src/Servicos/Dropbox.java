@@ -30,21 +30,11 @@ public class Dropbox extends ServicoNuvem{
         this.userlogado = new Usuario() ;
     }
 
-    public static ArrayList<Autenticavel> getUsers() {
-        return users;
-    }
-
-    public ArrayList<Arquivo> getArquivos() {
-        return arquivos;
+    public void setUserlogado(Usuario userlogado) {
+        this.userlogado = userlogado;
     }
     
-    public Usuario getUserlogado() {
-        return userlogado;
-    }
-    public static void adicionarUsuario(Usuario user){
-        users.add(user);
-    }
-
+    
     @Override
     public boolean logarServico() {
         super.logarServico();
@@ -59,5 +49,22 @@ public class Dropbox extends ServicoNuvem{
         
         return novo;
     }
+
+    public static ArrayList<Autenticavel> getUsers() {
+        return users;
+    }
+
+    public ArrayList<Arquivo> getArquivos() {
+        return arquivos;
+    }
     
+    public Usuario getUserlogado() {
+        return userlogado;
+    }
+    public static void adicionarUsuario(Usuario user){
+        users.add(user);
+    }
+    public void adicionarArquivo(Arquivo novo){
+        arquivos.add(novo);
+    }
 }

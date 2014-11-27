@@ -109,8 +109,9 @@ public class Videos extends Arquivo implements Editavel, Comparable<Videos>{
     }
     @Override
     public String toString() {
-        super.toString();
-        String s =  "Titulo: " + this.nome+
+        
+        String s =  "Titulo: " + this.nome +
+                    super.toString() +
                     "\nClassificação: " + this.classificacao +
                     "\nDuração: " + this.duracao +
                     "\n";

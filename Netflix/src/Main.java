@@ -3,11 +3,17 @@
  * @author Adriano
  */
 
+import Servicos.Dropbox;
 import Servicos.Netflix;
 import Servicos.Servico;
+import Servicos.ServicoNuvem;
 import Servicos.Youtube;
+import Tipodados.Arquivo;
+import Tipodados.Imagem;
+import Tipodados.Texto;
 import Tipodados.Videos;
 import Usuario.Usuario;
+import static Usuario.Usuario.novoUser;
 import java.util.Scanner;
 
 
@@ -18,8 +24,15 @@ public class Main {
      */
     public static void main(String[] args) {
         
+         
+        
         Scanner sc = new Scanner(System.in);
         int opcao, flag;
+        
+        Arquivo a1 = new Videos("Video1",  2.1, Videos.Classificacao.LIVRE, 3);
+        Arquivo a2 = new Imagem(2, 3, 2.1, "Imagem1");
+        Arquivo a3 = new Texto("Livro", 10, 0.1);
+        
         //Criando e Adicionando Usuarios ao ArraysList de Youtube e Netflix//
         //---------------------------------------------------------------//
         Usuario n1 = new Usuario("Peter","Terra do Nunca", 18, "ppan", "4321" );
@@ -29,6 +42,15 @@ public class Main {
         Netflix.adicionarUsuario(n1);
         Netflix.adicionarUsuario(n2);
         Netflix.adicionarUsuario(n3);
+        
+        Youtube.adicionarUsuario(n1);
+        Youtube.adicionarUsuario(n2);
+        Youtube.adicionarUsuario(n3);
+        
+        Dropbox.adicionarUsuario(n1);
+        Dropbox.adicionarUsuario(n2);
+        Dropbox.adicionarUsuario(n3);
+        
        
         //---------------------------------------------------------------//
        
@@ -49,120 +71,162 @@ public class Main {
         Netflix.adicionarVideos(novo3);
         Netflix.adicionarVideos(novo4);
         //----------------------------------------------------------------//
+        
+        Usuario novo = novoUser();
+        Servico novoservico;
+
         do{
-            
-            Usuario user = Usuario.novoUser();
-
-            System.out.println("1 - Deseja Adquirir Servicos");
-            System.out.println("2 - Fazer Logon em Servico");
-            System.out.print("Digite numero da opcao Desejada: ");
+            System.out.println("O que voce deseja fazer?");
+            System.out.println("1-Entrar em Netflix");
+            System.out.println("2-Criar conta em Netflix");
+            System.out.println("3-Entrar em Youtube");
+            System.out.println("4-Criar conta em Youtube");
+            System.out.println("5-Entrar em Dropbox");
+            System.out.println("6-Criar conta em Dropbox");
+            //System.out.println("7-Criar Usuario");
             opcao = sc.nextInt();
-
-            switch (opcao) {
+            switch(opcao){
                 case 1:
-                    int opcao1;
-                    System.out.println("1 - Adquirir Youtube");
-                    System.out.println("2 - Adquirir Netflix");
-                    System.out.print("Digite numero da opcao Desejada: ");
-                    opcao1 = sc.nextInt();
-
-                    switch (opcao1) {
-                        case 1:
-                            Youtube youtube = new Youtube(user, false, 0);
-                            break;
-
-                        case 2:
-                            Netflix netflix;
-                            if(Netflix.getNumeroAtualAparelhos() < Netflix.getNUM_MAX_APARELHOS_ONLINE()){
-                                netflix = new Netflix(user, Netflix.FormaPagamento.BOLETO, true, 19.90);
-                            }
-                            else{
-                                System.out.println("Limite de Aparelhos online");
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case 2:
-                    int opcao2;
-                    System.out.println("1 - Fazer Logon Youtube");
-                    System.out.println("2 - Fazer Logon Netflix");
-                    System.out.print("Digite numero da opcao Desejada: ");
-                    opcao2 = sc.nextInt();
-
-                    switch (opcao2) {
-                        case 1:
-                            Servico servico1 = new Youtube(user, false, 0);
-                            servico1.logarServico();
-                            servico1.mensagemBoasVindas();
-                            switch( ((Youtube) servico1 ).menuYoutube()){
-                                case 1:
-                                    Youtube.mostrarListaVideos();
-                                    break;
-                                case 2:
-                                    String nome;
-                                    int numero;
-                                    System.out.println("Digite nome do Filme");
-                                    sc.nextLine();
-                                    nome = sc.nextLine();
-                                    numero = ((Youtube) servico1 ).pesquisarVideos(nome);
-                                    switch( ((Youtube) servico1).submenu()){
-                                        case 1:
-                                            ((Youtube) servico1 ).reproduzirMidia(Youtube.getListaVideos().get(numero));
-                                            break;
-
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-
-                        case 2:
-                            Servico servico2 = new Netflix(user, Netflix.FormaPagamento.CREDITO, false, 19.90);
-                            servico2.logarServico();
-                            servico2.mensagemBoasVindas();
-                            switch( ((Netflix) servico2).menuNetflix() ){
+                    if( novo.autenticar(Netflix.getUsuarios()) ){
+                        novoservico = new Netflix(novo, Netflix.FormaPagamento.DEBITO, true, 19.90);
+                        ((Netflix) novoservico).setUsuarioAtual(novo);
+                        System.out.println((Netflix)novoservico);
+                        do{
+                            switch(Netflix.menuNetflix()){
                                 case 1:
                                     Netflix.mostrarFilmesDisponiveis();
                                     break;
                                 case 2:
-                                    ((Netflix) servico2).mostrarFilmesAssistidos();
+                                    ((Netflix) novoservico).mostrarFilmesAssistidos();
                                     break;
                                 case 3:
-                                    String nome;
-                                    int numero;
-                                    System.out.println("Digite nome do Filme");
-                                    sc.nextLine();
-                                    nome = sc.nextLine();
-                                    numero = ((Netflix) servico2).procurarFilme(nome);
-                                    switch( ((Netflix) servico2).subMenu() ){
-                                        case 1:
-                                            ((Netflix) servico2).adicionarAMinhaLista(Netflix.getFilmesDisponiveis().get(numero));
-                                            break;
-                                        case 2:                                    
-                                            ((Netflix) servico2).reproduzirMidia(Netflix.getFilmesDisponiveis().get(numero));
-                                            break;
-                                        default:
-                                    }
+                                        String nome;
+                                        int numero;
+                                        System.out.println("Digite nome do Filme");
+                                        sc.nextLine();
+                                        nome = sc.nextLine();
+                                        numero = ((Netflix) novoservico).procurarFilme(nome);
+                                        switch( ((Netflix) novoservico).subMenu() ){
+                                            case 1:
+                                                ((Netflix) novoservico).adicionarAMinhaLista(Netflix.getFilmesDisponiveis().get(numero));
+                                                break;
+                                            case 2:                                    
+                                                ((Netflix) novoservico).reproduzirMidia(Netflix.getFilmesDisponiveis().get(numero));
+                                                break;
+                                            default:
+                                        }
                                     break;
                                 case 4:
-                                    ((Netflix) servico2).conectarAparelho();
-                                    break;
-                                default:
+                                    ((Netflix) novoservico).conectarAparelho();
                                     break;
                             }
-                            break;
-                        default:
-                            break;
+                            System.out.println("Deseja continuar(1:sim ou 0:nao)");
+                            flag = sc.nextInt();
+                        }while(flag == 1);
+                    }
+                    else{
+                        System.out.println("Usuario Invalido");  
+                    }
+                    break;
+                case 2:
+                    Netflix.adicionarUsuario(novo);
+                    break;
+                case 3:
+                    if( novo.autenticar(Youtube.getUsuarios()) ){
+                        novoservico = new Youtube(novo, true, 0);
+                        ((Youtube) novoservico).setUsuarioLogado(novo);
+                        System.out.println((Youtube)novoservico);
+                        do{
+                            switch( ((Youtube) novoservico ).menuYoutube()){
+                                    case 1:
+                                        Youtube.mostrarListaVideos();
+                                        break;
+                                    case 2:
+                                        String nome;
+                                        int numero;
+                                        System.out.println("Digite nome do Filme");
+                                        sc.nextLine();
+                                        nome = sc.nextLine();
+                                        numero = ((Youtube) novoservico ).pesquisarVideos(nome);
+                                        switch( ((Youtube) novoservico).submenu()){
+                                            case 1:
+                                                ((Youtube) novoservico ).reproduzirMidia(Youtube.getListaVideos().get(numero));
+                                                break;
+                                             
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            System.out.println("Deseja continuar(1:sim ou 0:nao)");
+                            flag = sc.nextInt();
+                        }while(flag == 1);
+                    }
+                    else{
+
                     }
 
-                default:
+                    break;    
+                case 4:
+                    Youtube.adicionarUsuario(novo);
+                    break;
+                case 5:
+                    if( novo.autenticar(Dropbox.getUsers()) ){
+                        novoservico = new Dropbox(novo, ServicoNuvem.Franquia.PESSOAL, 0);
+                        ((Dropbox) novoservico).setUserlogado(novo);
+                        System.out.println((Dropbox)novoservico);
+                        do{
+                            System.out.println("1-Adicionar Arquivo");
+                            System.out.println("2-Sair");
+                            System.out.println("Digite a Opcao");
+                            int q = sc.nextInt();
+                            switch(q){
+                                case 1:
+                                    System.out.println("Arquivo: (Arquivo1:1, Arquivo2:2, Arquivo3:3)");
+                                    System.out.println("Digite o numeo");
+                                    int numero = sc.nextInt();
+                                    Arquivo add = new Texto("sim", 10, 0.1);
+                                    switch(numero){
+                                        case 1:
+                                            add = a1;
+                                            break;
+                                        case 2:
+                                            add = a2;
+                                            break;
+                                        case 3:
+                                            add = a3;
+                                            break;    
+                                    }
+                                    if(add instanceof Videos){
+                                        System.out.println("Adicionando Video");
+                                        ((Dropbox) novoservico).adicionarArquivo(add);
+                                    }
+                                    else if(add instanceof Imagem){
+                                        System.out.println("Adicionando Imagem");
+                                        ((Dropbox) novoservico).adicionarArquivo(add);
+                                    }
+                                    else if(add instanceof Texto){
+                                        System.out.println("Adicionando Texto");
+                                        ((Dropbox) novoservico).adicionarArquivo(add);
+                                    }
+                                case 2:
+                                    break;
+                            }
+                            System.out.println("Deseja continuar(1:sim ou 0:nao)");
+                            flag = sc.nextInt();
+                        }while(flag == 1);  
+                    }
+                    else{
+                        System.out.println("Usuario Invalido");
+                    }
+                    break;
+                case 6:
+                    Dropbox.adicionarUsuario(novo);
                     break;
             }
             System.out.println("Deseja continuar(1:sim ou 0:nao)");
             flag = sc.nextInt();
         }while(flag == 1);
+        
     }
 }

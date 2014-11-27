@@ -36,7 +36,7 @@ public abstract class Servico {
 
     @Override
     public String toString() {
-        String novo = "\nPreco do Servico" + "R$" + this.preco + "\n"; 
+        String novo = "\nPreco do Servico: " + "R$" + this.preco + "\n"; 
         return novo;
         
     }  
