@@ -9,7 +9,7 @@ package Servicos;
  *
  * @author Adriano
  */
-public interface Editavel {
+public interface Editavel { 
     
     public abstract void editar();
     

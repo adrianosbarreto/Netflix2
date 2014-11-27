@@ -12,9 +12,7 @@ import java.util.Scanner;
  *
  * @author Adriano
  */
-public class Videos extends Arquivo implements Editavel{
-
-    
+public class Videos extends Arquivo implements Editavel, Comparable<Videos>{
 
     public enum Classificacao{
         LIVRE(0),
@@ -48,6 +46,15 @@ public class Videos extends Arquivo implements Editavel{
         this.duracao = 0.0;
         this.classificacao = Classificacao.LIVRE;
     }
+
+    public Videos(Videos atual) {
+        super(atual);
+        this.nome = atual.nome;
+        this.duracao = atual.duracao;
+        this.classificacao = atual.classificacao;
+    }
+    
+    
 
     public void setDuracao(double duracao) {
         if( duracao >= 0 ){
@@ -108,6 +115,18 @@ public class Videos extends Arquivo implements Editavel{
                     "\nDuração: " + this.duracao +
                     "\n";
         return s;
+    }
+    @Override
+    public int compareTo(Videos video) {
+        if( this.nome.compareTo(video.nome) == 1  ){
+           return 1;
+        }
+        else if(this.nome.compareTo(video.nome) == 0){
+            return 0;
+        }
+        else{
+            return -1;
+        }
     }
 }
 

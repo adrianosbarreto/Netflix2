@@ -5,7 +5,8 @@
  */
 package Servicos;
 
-import Tipodados.Arquivo;
+import Tipodados.Arquivo; 
+import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Dropbox extends ServicoNuvem{
     
-    private static ArrayList<Usuario> users = new ArrayList<>();
+    private static ArrayList<Autenticavel> users = new ArrayList<>();
     private ArrayList<Arquivo> arquivos = new ArrayList<>();
     Usuario userlogado;
     
@@ -29,7 +30,7 @@ public class Dropbox extends ServicoNuvem{
         this.userlogado = new Usuario() ;
     }
 
-    public static ArrayList<Usuario> getUsers() {
+    public static ArrayList<Autenticavel> getUsers() {
         return users;
     }
 
@@ -39,6 +40,9 @@ public class Dropbox extends ServicoNuvem{
     
     public Usuario getUserlogado() {
         return userlogado;
+    }
+    public static void adicionarUsuario(Usuario user){
+        users.add(user);
     }
 
     @Override

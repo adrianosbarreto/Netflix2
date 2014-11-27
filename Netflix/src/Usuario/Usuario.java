@@ -75,8 +75,6 @@ public class Usuario extends Pessoa implements Autenticavel, Editavel{
         System.out.println("Digite sua Senha");
         senha1 = sc.next();
         
-        
-        
         return new Usuario(nome1, endereco1, idade1, nomeUser1, senha1);     
     }
     
@@ -87,12 +85,7 @@ public class Usuario extends Pessoa implements Autenticavel, Editavel{
         
         return novo;
     }
-    
-    
-    
-    
-    
-    
+   
     @Override
     public boolean autenticar(ArrayList <Autenticavel> vetor) {
         for (Autenticavel vetor1 : vetor) {

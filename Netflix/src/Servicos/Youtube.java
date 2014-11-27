@@ -6,8 +6,10 @@
 package Servicos;
 
 import Tipodados.Videos;
+import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -16,7 +18,7 @@ import java.util.Scanner;
  */
 public class Youtube extends Servico implements Streaming{
     private boolean status;
-    private static ArrayList<Usuario> usuarios = new ArrayList<>();
+    private static ArrayList<Autenticavel> usuarios = new ArrayList<>();
     private static ArrayList<Videos> listaVideos = new ArrayList<>();
     Usuario usuarioLogado;
 
@@ -78,6 +80,7 @@ public class Youtube extends Servico implements Streaming{
         if (video.getClassificacao() <= usuarioLogado.getIdade()){
             System.out.println("Carregando Video...");
             System.out.println("Video " + video.getNome() + "em reprodução");
+            System.out.println("Fim do video!");
             return true;
         }
         else{
@@ -111,6 +114,27 @@ public class Youtube extends Servico implements Streaming{
         opcao = sc.nextInt();
         
         return opcao;
+    }
+    public void reproduzirAleatorio( ArrayList<Videos> lista){
+        Random aleatorio = new Random();
+        ArrayList<Integer> vetor = new ArrayList<>();
+        Integer numero;
+        
+        
+        for (Videos lista1 : lista) {
+            do{
+                numero = aleatorio.nextInt(lista.size());
+                vetor.contains(numero);
+            }while(vetor.contains(numero));
+            vetor.add(numero);
+        }
+        for (int i = 0; i < lista.size(); i++) {
+            reproduzirMidia(lista.get(vetor.get(i)));
+        }  
+    }
+    
+    public static void adicionarUsuario(Usuario user){
+        usuarios.add(user);
     }
     
 }

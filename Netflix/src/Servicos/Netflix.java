@@ -10,6 +10,7 @@ package Servicos;
  * @author Adriano
  */
 import Tipodados.Videos;
+import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,7 +33,7 @@ public class Netflix extends Servico implements Streaming {
     private static final int NUM_MAX_APARELHOS_ONLINE = 4;
     private static int numeroAtualAparelhos = 0;
     private static ArrayList <Videos> filmesDisponiveis = new ArrayList<>();
-    private static ArrayList <Usuario> usuarios = new ArrayList<>();
+    private static ArrayList <Autenticavel> usuarios = new ArrayList<>();
     private ArrayList <Videos> filmesAssistidos = new ArrayList<>();
     private ArrayList <Videos> minhaLista = new ArrayList<>();
     private Usuario usuarioAtual;
@@ -99,6 +100,10 @@ public class Netflix extends Servico implements Streaming {
 
     public static int getNUM_MAX_APARELHOS_ONLINE() {
         return NUM_MAX_APARELHOS_ONLINE;
+    }
+    
+    public static void adicionarUsuario(Usuario user){
+        usuarios.add(user);
     }
     
     public static void adicionarVideos(Videos video){
@@ -197,4 +202,13 @@ public class Netflix extends Servico implements Streaming {
         
         return opcao;
     }
+
+    @Override
+    public String toString() {
+        String novo =   "NETFLIX" + super.toString() +
+                        this.usuarioAtual.toString();
+        
+        return novo;
+    }
+    
 }

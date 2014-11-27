@@ -9,7 +9,7 @@ package Tipodados;
  *
  * @author Adriano
  */
-public abstract class Arquivo {
+public abstract class Arquivo{
     protected double tamanho;
 
     public Arquivo(double tamanho) {
@@ -17,6 +17,9 @@ public abstract class Arquivo {
     }
     public Arquivo(){
         this.tamanho = 0;
+    }
+    public Arquivo(Arquivo copiado){
+        this.tamanho = copiado.tamanho;
     }
     public double getTamanho() {
         return tamanho;
@@ -39,7 +42,6 @@ public abstract class Arquivo {
     }
     
     
-    public abstract boolean abrirArquivo(Arquivo arquivo);
-    
+    public abstract boolean abrirArquivo(Arquivo arquivo);    
         
 }
