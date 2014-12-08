@@ -9,6 +9,7 @@ import Tipodados.Videos;
 import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -42,6 +43,7 @@ public class Youtube extends Servico implements Reproducao{
         return listaVideos;
     }
     public static void mostrarListaVideos(){
+        Collections.sort(listaVideos);
         for(Videos i : listaVideos){   
             System.out.println(i);
             System.out.println("");
@@ -90,7 +92,7 @@ public class Youtube extends Servico implements Reproducao{
     public boolean reproduzirMidia(Videos video) {            
         if (video.getClassificacao() <= usuarioLogado.getIdade()){
             System.out.println("Carregando Video...");
-            System.out.println("Video " + video.getNome() + "em reprodução");
+            System.out.println("Video " + video.getNome() + " em reprodução");
             System.out.println("Fim do video!");
             return true;
         }

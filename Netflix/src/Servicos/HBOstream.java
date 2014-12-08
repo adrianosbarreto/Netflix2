@@ -9,6 +9,7 @@ import Tipodados.Videos;
 import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -50,6 +51,10 @@ public class HBOstream extends ServicoStreaming implements Reproducao{
             //System.out.println("");
         }
     }
+    
+    public static void adicionarUsuario(Usuario user){
+        usuariosHBO.add(user);
+    }
 
     public static ArrayList<Autenticavel> getUsuarios() {
         return usuariosHBO;
@@ -61,6 +66,22 @@ public class HBOstream extends ServicoStreaming implements Reproducao{
     }
     
     public final int pesquisarVideos(String nome){
+        for( int i = 0; i < filmesHBO.size(); i++ ){
+            if( filmesHBO.get(i).getNome().equals(nome) ){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static void mostrarFilmesDisponiveis(){
+        Collections.sort(filmesHBO);
+        for(Videos i : filmesHBO){
+            System.out.println(i);
+            //System.out.println("");
+        }
+    }
+    
+    public final int pesquisarVideosHBO(String nome){
         for( int i = 0; i < filmesHBO.size(); i++ ){
             if( filmesHBO.get(i).getNome().equals(nome) ){
                 return i;
@@ -93,7 +114,7 @@ public class HBOstream extends ServicoStreaming implements Reproducao{
     public boolean reproduzirMidia(Videos video) {            
         if (video.getClassificacao() <= usuarioLogado.getIdade()){
             System.out.println("Carregando Video...");
-            System.out.println("Video " + video.getNome() + "em reprodução");
+            System.out.println("Video " + video.getNome() + " em reprodução");
             System.out.println("Fim do video!");
             return true;
         }
@@ -113,8 +134,8 @@ public class HBOstream extends ServicoStreaming implements Reproducao{
     public final int menuHBO(){
         Scanner sc = new Scanner(System.in);
         int opcao;
-        System.out.println("1 - Mostrar Lista Videos");
-        System.out.println("2 - Procurar Video");
+        System.out.println("1 - Mostrar Lista Filmes");
+        System.out.println("2 - Procurar Filme");
         System.out.print("Digite numero da opcao Desejada: ");
         opcao = sc.nextInt();
         

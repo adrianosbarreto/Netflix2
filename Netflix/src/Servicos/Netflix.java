@@ -13,6 +13,7 @@ import Tipodados.Videos;
 import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Scanner;
  * @author Adriano
  */
 public class Netflix extends ServicoStreaming implements Reproducao {
-
+    
     public enum FormaPagamento{
         CREDITO,
         DEBITO,
@@ -36,6 +37,7 @@ public class Netflix extends ServicoStreaming implements Reproducao {
     private Usuario usuarioAtual;
     private FormaPagamento formaPagamento;
     private boolean status;
+    
 
     public Netflix(Usuario cliente, FormaPagamento forma, boolean status, double preco) {
         super(preco, 1024);
@@ -118,6 +120,7 @@ public class Netflix extends ServicoStreaming implements Reproducao {
     
     
     public static void mostrarFilmesDisponiveis(){
+        Collections.sort(filmesDisponiveis);
         for(Videos i : filmesDisponiveis){
             System.out.println(i);
             System.out.println("");

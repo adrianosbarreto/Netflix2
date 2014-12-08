@@ -4,6 +4,7 @@
  */
 
 import Servicos.Dropbox;
+import Servicos.HBOstream;
 import Servicos.Netflix;
 import Servicos.Servico;
 import Servicos.ServicoNuvem;
@@ -29,9 +30,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int opcao, flag;
         
-        Arquivo a1 = new Videos("Video1",  2.1, Videos.Classificacao.LIVRE, 3);
-        Arquivo a2 = new Imagem(2, 3, 2.1, "Imagem1");
+        //.......Criando e Arquivos para adicionar ao Dropbox............//
+        //---------------------------------------------------------------//
+        Arquivo a1 = new Videos("Video",  2.1, Videos.Classificacao.LIVRE, 3);
+        Arquivo a2 = new Imagem(2, 3, 2.1, "Imagem");
         Arquivo a3 = new Texto("Livro", 10, 0.1);
+        //---------------------------------------------------------------//
         
         //Criando e Adicionando Usuarios ao ArraysList de Youtube e Netflix//
         //---------------------------------------------------------------//
@@ -51,6 +55,9 @@ public class Main {
         Dropbox.adicionarUsuario(n2);
         Dropbox.adicionarUsuario(n3);
         
+        HBOstream.adicionarUsuario(n1);
+        HBOstream.adicionarUsuario(n2);
+        HBOstream.adicionarUsuario(n3);
        
         //---------------------------------------------------------------//
        
@@ -70,12 +77,19 @@ public class Main {
         Netflix.adicionarVideos(novo2);
         Netflix.adicionarVideos(novo3);
         Netflix.adicionarVideos(novo4);
+        
+        HBOstream.adicionarFilmeHBO(novo1);
+        HBOstream.adicionarFilmeHBO(novo2);
+        HBOstream.adicionarFilmeHBO(novo3);
+        HBOstream.adicionarFilmeHBO(novo4);
+        
         //----------------------------------------------------------------//
         
         Usuario novo = novoUser();
         Servico novoservico;
 
         do{
+            //.........................MENU............................//
             System.out.println("O que voce deseja fazer?");
             System.out.println("1-Entrar em Netflix");
             System.out.println("2-Criar conta em Netflix");
@@ -83,10 +97,15 @@ public class Main {
             System.out.println("4-Criar conta em Youtube");
             System.out.println("5-Entrar em Dropbox");
             System.out.println("6-Criar conta em Dropbox");
-            //System.out.println("7-Criar Usuario");
+            System.out.println("7-Entrar em HBOstream");
+            System.out.println("8-Criar conta em HBOstream");
+            System.out.println("9-Editar Informações");
+            //..........................................................//
+
             opcao = sc.nextInt();
             switch(opcao){
-                case 1:
+                //.........................NETFLIX............................//
+                case 1: 
                     if( novo.autenticar(Netflix.getUsuarios()) ){
                         novoservico = new Netflix(novo, Netflix.FormaPagamento.DEBITO, true, 19.90);
                         ((Netflix) novoservico).setUsuarioAtual(novo);
@@ -132,6 +151,7 @@ public class Main {
                     Netflix.adicionarUsuario(novo);
                     break;
                 case 3:
+                //.........................YOUTUBE............................//
                     if( novo.autenticar(Youtube.getUsuarios()) ){
                         novoservico = new Youtube(novo, true, 0);
                         ((Youtube) novoservico).setUsuarioLogado(novo);
@@ -171,6 +191,7 @@ public class Main {
                     Youtube.adicionarUsuario(novo);
                     break;
                 case 5:
+                    //.........................DROPBOX............................//
                     if( novo.autenticar(Dropbox.getUsers()) ){
                         novoservico = new Dropbox(novo, ServicoNuvem.Franquia.PESSOAL, 0);
                         ((Dropbox) novoservico).setUserlogado(novo);
@@ -222,6 +243,71 @@ public class Main {
                     break;
                 case 6:
                     Dropbox.adicionarUsuario(novo);
+                    break;
+                    
+                case 7:
+                    //............................HBO..............................//
+                    if( novo.autenticar( HBOstream.getUsuarios() ) ){
+                        novoservico = new HBOstream(novo, 19, 2048);
+                        ((HBOstream) novoservico).setUsuarioLogado(novo);
+                        System.out.println((HBOstream)novoservico);
+                        do{
+                            
+                            switch( ((HBOstream)novoservico).menuHBO() ){
+                                case 1:
+                                    HBOstream.mostrarFilmesDisponiveis();
+                                    break;
+                                case 2:
+                                    String nome;
+                                        int numero;
+                                        System.out.println("Digite nome do Filme");
+                                        sc.nextLine();
+                                        nome = sc.nextLine();
+                                        numero = ((HBOstream) novoservico ).pesquisarVideosHBO(nome);
+                                        switch(((HBOstream) novoservico ).submenuHBO()){
+                                            case 1:
+                                                ((HBOstream) novoservico ).reproduzirMidia(HBOstream.getListaVideos().get(numero));    
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                            
+                                    break;
+                                
+                            }
+                            System.out.println("Deseja continuar(1:sim ou 0:nao)");
+                            flag = sc.nextInt();
+                        }while(flag == 1);  
+                    }
+                    else{
+                        System.out.println("Usuario Invalido");
+                    }
+                    break;
+                case 8:
+                    HBOstream.adicionarUsuario(novo);
+                    break;
+                    
+                case 9:
+                    System.out.println("Oque voce deseja editar?");
+                    System.out.println("1-Video");
+                    System.out.println("2-Usuario Atual");
+                    System.out.println("Digite opcao desejada: ");
+                    int opc = sc.nextInt();
+                    switch (opc){
+                        case 1:
+                            novo1.editar();
+                            Youtube.adicionarFilme(novo1);
+                            Netflix.adicionarVideos(novo1);
+                            HBOstream.adicionarFilmeHBO(novo1);
+                            break;   
+                        case 2:
+                            novo.editar();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
                     break;
             }
             System.out.println("Deseja continuar(1:sim ou 0:nao)");
