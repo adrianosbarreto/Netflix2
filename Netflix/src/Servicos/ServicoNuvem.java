@@ -24,8 +24,6 @@ public class ServicoNuvem extends Servico{
     
     protected Franquia armazenamento;
 
-   
-
     public ServicoNuvem(Franquia armazenamento, double preco) {
         super(preco);
         this.armazenamento = armazenamento;
@@ -59,9 +57,5 @@ public class ServicoNuvem extends Servico{
         
         return novo;
     }
-    
-
-    
-    
-    
+     
 }

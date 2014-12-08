@@ -19,11 +19,8 @@ import java.util.Scanner;
  *
  * @author Adriano
  */
-public class Netflix extends Servico implements Streaming {
+public class Netflix extends ServicoStreaming implements Reproducao {
 
-    
-
-    
     public enum FormaPagamento{
         CREDITO,
         DEBITO,
@@ -41,7 +38,7 @@ public class Netflix extends Servico implements Streaming {
     private boolean status;
 
     public Netflix(Usuario cliente, FormaPagamento forma, boolean status, double preco) {
-        super(preco);
+        super(preco, 1024);
         this.usuarioAtual = cliente;
         this.status = status;
         this.setNumeroAtualAparelhos();
@@ -49,7 +46,7 @@ public class Netflix extends Servico implements Streaming {
     }
 
     public Netflix() {
-        super(19.90);
+        super(19.90, 1024);
         this.usuarioAtual = new Usuario();
         this.formaPagamento = FormaPagamento.BOLETO;
         this.setNumeroAtualAparelhos();

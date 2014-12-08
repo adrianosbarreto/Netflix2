@@ -9,29 +9,32 @@ import Tipodados.Videos;
 import Usuario.Autenticavel;
 import Usuario.Usuario;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
  *
  * @author Adriano
  */
-public class Youtube extends Servico implements Reproducao{
+public class HBOstream extends ServicoStreaming implements Reproducao{
     
-    private boolean status;
-    private static ArrayList<Autenticavel> usuarios = new ArrayList<>();
-    private static ArrayList<Videos> listaVideos = new ArrayList<>();
+    
+    private static ArrayList <Videos> filmesHBO = new ArrayList<>();
+    private static ArrayList <Autenticavel> usuariosHBO = new ArrayList<>();
     private Usuario usuarioLogado;
+    private boolean statusUsuario;
 
-    public Youtube(Usuario userlogado, boolean status, double preco) {
-        super(preco);
-        this.usuarioLogado = userlogado;
-        this.status = status;
+    public HBOstream(Usuario usuarioLogado, double preco, int taxaMaxTranferencia) {
+        super(preco, taxaMaxTranferencia);
+        this.usuarioLogado = usuarioLogado;
     }
-    public Youtube(){
-        super(0);
-        this.usuarioLogado = new Usuario();
-        this.status = false;
+
+    public HBOstream(Usuario usuarioLogado) {
+        super(20.0, 0);
+        this.usuarioLogado = usuarioLogado;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
     }
 
     public void setUsuarioLogado(Usuario usuarioLogado) {
@@ -39,27 +42,27 @@ public class Youtube extends Servico implements Reproducao{
     }
     
     public static ArrayList<Videos> getListaVideos() {
-        return listaVideos;
+        return filmesHBO;
     }
     public static void mostrarListaVideos(){
-        for(Videos i : listaVideos){   
+        for(Videos i : filmesHBO){   
             System.out.println(i);
-            System.out.println("");
+            //System.out.println("");
         }
     }
 
     public static ArrayList<Autenticavel> getUsuarios() {
-        return usuarios;
+        return usuariosHBO;
     }
     
     
-    public static void adicionarFilme(Videos video){
-        listaVideos.add(video);
+    public static void adicionarFilmeHBO(Videos video){
+        filmesHBO.add(video);
     }
-
+    
     public final int pesquisarVideos(String nome){
-        for( int i = 0; i < listaVideos.size(); i++ ){
-            if( listaVideos.get(i).getNome().equals(nome) ){
+        for( int i = 0; i < filmesHBO.size(); i++ ){
+            if( filmesHBO.get(i).getNome().equals(nome) ){
                 return i;
             }
         }
@@ -68,8 +71,8 @@ public class Youtube extends Servico implements Reproducao{
 
     @Override
     public boolean logarServico() {
-        if( status == false ){
-            status = true;
+        if( statusUsuario == false ){
+            statusUsuario = true;
             System.out.println(this.usuarioLogado);
         }
         else{
@@ -83,7 +86,7 @@ public class Youtube extends Servico implements Reproducao{
     @Override
     public void mensagemBoasVindas() {
         super.mensagemBoasVindas();
-        System.out.println(" ao YouTube!");
+        System.out.println(" a HBO!");
     }
 
     @Override 
@@ -102,12 +105,12 @@ public class Youtube extends Servico implements Reproducao{
 
     @Override
     public String toString() {
-        String novo =   "YOUTUBE" + super.toString()+
+        String novo =   "HBOSTREAM" + super.toString()+
                         this.usuarioLogado.toString();
         return novo;
     }
     
-    public final int menuYoutube(){
+    public final int menuHBO(){
         Scanner sc = new Scanner(System.in);
         int opcao;
         System.out.println("1 - Mostrar Lista Videos");
@@ -118,7 +121,7 @@ public class Youtube extends Servico implements Reproducao{
         return opcao;
     }
     
-    public final int submenu(){
+    public final int submenuHBO(){
         Scanner sc = new Scanner(System.in);
         int opcao;
         System.out.println("1 - Reproduzir Filme");
@@ -126,27 +129,5 @@ public class Youtube extends Servico implements Reproducao{
         
         return opcao;
     }
-    public void reproduzirAleatorio( ArrayList<Videos> lista){
-        Random aleatorio = new Random();
-        ArrayList<Integer> vetor = new ArrayList<>();
-        Integer numero;
-        
-        
-        for (Videos lista1 : lista) {
-            do{
-                numero = aleatorio.nextInt(lista.size());
-                vetor.contains(numero);
-            }while(vetor.contains(numero));
-            vetor.add(numero);
-        }
-        for (int i = 0; i < lista.size(); i++) {
-            reproduzirMidia(lista.get(vetor.get(i)));
-        }  
-    }
-    
-    public static void adicionarUsuario(Usuario user){
-        usuarios.add(user);
-    }
     
 }
-

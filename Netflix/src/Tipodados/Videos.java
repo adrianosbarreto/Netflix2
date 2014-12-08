@@ -54,8 +54,6 @@ public class Videos extends Arquivo implements Editavel, Comparable<Videos>{
         this.classificacao = atual.classificacao;
     }
     
-    
-
     public void setDuracao(double duracao) {
         if( duracao >= 0 ){
             this.duracao = duracao;
